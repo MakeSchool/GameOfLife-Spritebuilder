@@ -9,51 +9,112 @@
 #import "Grid.h"
 #import "Creature.h"
 
-static const int GRID_ROWS = 10;
+static const int GRID_ROWS = 8;
 static const int GRID_COLUMNS = 10;
 
 @implementation Grid {
     NSMutableArray *_gridArray;
+    float _columnWidth;
+    float _columnHeight;
 }
 
-- (id)init
-{
-    self = [super init];
-    
-    if (self) {
-        
-    }
-    
-    return self;
-}
+#pragma mark - Lifecycle
 
 - (void)onEnter
 {
-    float stepX = self.contentSize.width / GRID_ROWS;
-    float stepY = self.contentSize.height / GRID_COLUMNS;
+    _columnWidth = self.contentSize.width / GRID_COLUMNS;
+    _columnHeight = self.contentSize.height / GRID_ROWS;
     float x = 0;
     float y = 0;
     
     _gridArray = [NSMutableArray array];
     
     // initialize Creatures
-    for (int i = 0; i < GRID_COLUMNS; i++) {
+    for (int i = 0; i < GRID_ROWS; i++) {
         _gridArray[i] = [NSMutableArray array];
         x = 0;
         
-        for (int j = 0; j < GRID_ROWS; j++) {
+        for (int j = 0; j < GRID_COLUMNS; j++) {
             Creature *creature = [[Creature alloc] initCreature];
             creature.anchorPoint = ccp(0, 0);
             creature.position = ccp(x, y);
-            creature.isAlive = FALSE;
             [self addChild:creature];
             
             _gridArray[i][j] = creature;
             
-            x+=stepX;
+            x+=_columnWidth;
         }
         
-        y += stepY;
+        y += _columnHeight;
+    }
+    
+    // accept touches on the grid
+    self.userInteractionEnabled = TRUE;
+}
+
+#pragma mark - Touch Handling
+
+- (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    CGPoint touchLocation = [touch locationInNode:self];
+    
+    Creature *creature = [self creatureForTouchPosition:touchLocation];
+    creature.isAlive = !creature.isAlive;
+}
+
+- (Creature *)creatureForTouchPosition:(CGPoint)touchPosition {
+    Creature *creature = nil;
+    
+    int column = touchPosition.x / _columnWidth;
+    int row = touchPosition.y / _columnHeight;
+    creature = _gridArray[row][column];
+    
+    return creature;
+}
+
+#pragma mark - Game Logic
+
+- (void)evolveStep
+{
+    // rows
+    for (int i = 0; i < [_gridArray count]; i++) {
+        // columns
+        for (int j = 0; j < [_gridArray[i] count]; j++) {
+            Creature *currentCreature = _gridArray[i][j];
+            // reset neighbour counter
+            currentCreature.livingNeighbours = 0;
+            
+            for (int x = (i-1); x <= (i+1); x++) {
+                for (int y = (j-1); y <= (j+1); y++) {
+                    
+                    BOOL indexesValid = TRUE;
+                    indexesValid &= x > 0;
+                    indexesValid &= y > 0;
+                    if (indexesValid) {
+                        indexesValid &= x < (int) [_gridArray count];
+                        if (indexesValid) {
+                            indexesValid &= y < (int) [(NSMutableArray*) _gridArray[x] count];
+                        }
+                    }
+                    
+                    if (!((x == i) && (y == j)) && indexesValid) {
+                        Creature *neighbour = _gridArray[x][y];
+                        currentCreature.livingNeighbours += neighbour.isAlive;
+                    }
+                }
+            }
+        }
+    }
+    
+    for (int i = 0; i < [_gridArray count]; i++) {
+        for (int j = 0; j < [_gridArray[i] count]; j++) {
+            Creature *currentCreature = _gridArray[i][j];
+            if (currentCreature.livingNeighbours == 3) {
+                currentCreature.isAlive = TRUE;
+            } else if ( (currentCreature.livingNeighbours <= 1) || (currentCreature.livingNeighbours >= 4)) {
+                currentCreature.isAlive = FALSE;
+            }
+        }
     }
 }
 

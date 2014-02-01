@@ -121,9 +121,9 @@
 				<key>displayName</key>
 				<string>CCBFile</string>
 				<key>memberVarAssignmentName</key>
-				<string></string>
+				<string>_grid</string>
 				<key>memberVarAssignmentType</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>properties</key>
 				<array>
 					<dict>
@@ -1336,8 +1336,8 @@
 								<string>Block</string>
 								<key>value</key>
 								<array>
-									<string></string>
-									<integer>0</integer>
+									<string>pause</string>
+									<integer>1</integer>
 								</array>
 							</dict>
 							<dict>
@@ -1404,7 +1404,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>ccbResources/ccbButtonHighlighted.png</string>
+									<string>GameOfLifeAssets/Buttons/pause-pressed.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -1644,8 +1644,8 @@
 								<string>Block</string>
 								<key>value</key>
 								<array>
-									<string></string>
-									<integer>0</integer>
+									<string>play</string>
+									<integer>1</integer>
 								</array>
 							</dict>
 							<dict>
@@ -1712,7 +1712,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>ccbResources/ccbButtonHighlighted.png</string>
+									<string>GameOfLifeAssets/Buttons/play-pressed.png</string>
 								</array>
 							</dict>
 							<dict>

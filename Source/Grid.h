@@ -10,4 +10,6 @@
 
 @interface Grid : CCSprite
 
+- (void)evolveStep;
+
 @end

@@ -17,6 +17,7 @@
     self = [super initWithSpriteFrame:spriteFrame];
     
     if (self) {
+        self.isAlive = FALSE;
     }
     
     return self;
