@@ -12,6 +12,8 @@
 @implementation MainScene {
     Grid *_grid;
     CCTimer *_timer;
+    CCLabelTTF *_generationLabel;
+    CCLabelTTF *_populationLabel;
 }
 
 - (id)init
@@ -38,6 +40,8 @@
 - (void)step
 {
     [_grid evolveStep];
+    _generationLabel.string = [NSString stringWithFormat:@"%d", _grid.generation];
+    _populationLabel.string = [NSString stringWithFormat:@"%d", _grid.totalAlive];
 }
 
 @end

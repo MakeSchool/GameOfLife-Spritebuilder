@@ -16,6 +16,8 @@ static const int GRID_COLUMNS = 10;
     NSMutableArray *_gridArray;
     float _columnWidth;
     float _columnHeight;
+    int _generation;
+    int _totalAlive;
 }
 
 #pragma mark - Lifecycle
@@ -39,7 +41,6 @@ static const int GRID_COLUMNS = 10;
             creature.anchorPoint = ccp(0, 0);
             creature.position = ccp(x, y);
             [self addChild:creature];
-            
             _gridArray[i][j] = creature;
             
             x+=_columnWidth;
@@ -54,13 +55,20 @@ static const int GRID_COLUMNS = 10;
 
 #pragma mark - Touch Handling
 
-- (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event
-{
-    CGPoint touchLocation = [touch locationInNode:self];
-    
-    Creature *creature = [self creatureForTouchPosition:touchLocation];
-    creature.isAlive = !creature.isAlive;
-}
+    - (void)touchMoved:(UITouch *)touch withEvent:(UIEvent *)event
+
+    - (void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event
+
+    - (void)touchCancelled:(UITouch *)touch withEvent:(UIEvent *)event
+
+
+    - (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event
+    {
+        CGPoint touchLocation = [touch locationInNode:self];
+        
+        Creature *creature = [self creatureForTouchPosition:touchLocation];
+        creature.isAlive = !creature.isAlive;
+    }
 
 - (Creature *)creatureForTouchPosition:(CGPoint)touchPosition {
     Creature *creature = nil;
@@ -106,6 +114,8 @@ static const int GRID_COLUMNS = 10;
         }
     }
     
+    int alive = 0;
+    
     for (int i = 0; i < [_gridArray count]; i++) {
         for (int j = 0; j < [_gridArray[i] count]; j++) {
             Creature *currentCreature = _gridArray[i][j];
@@ -114,8 +124,15 @@ static const int GRID_COLUMNS = 10;
             } else if ( (currentCreature.livingNeighbours <= 1) || (currentCreature.livingNeighbours >= 4)) {
                 currentCreature.isAlive = FALSE;
             }
+            
+            if (currentCreature.isAlive) {
+                alive++;
+            }
         }
     }
+    
+    _generation++;
+    _totalAlive = alive;
 }
 
 @end
