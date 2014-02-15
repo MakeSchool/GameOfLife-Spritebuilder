@@ -12,9 +12,7 @@
 
 - (id)initCreature
 {
-    CCSpriteFrame* spriteFrame = [CCSpriteFrame frameWithImageNamed:@"GameOfLifeAssets/Assets/bubble.png"];
-
-    self = [super initWithSpriteFrame:spriteFrame];
+    self = [super initWithImageNamed:@"GameOfLifeAssets/Assets/bubble.png"];
     
     if (self) {
         self.isAlive = FALSE;
