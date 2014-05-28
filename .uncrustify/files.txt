@@ -1,0 +1,11 @@
+./.uncrustify/test-expected.m
+./.uncrustify/test-input.m
+./GameOfLife.spritebuilder/Source/AppDelegate.h
+./GameOfLife.spritebuilder/Source/AppDelegate.m
+./GameOfLife.spritebuilder/Source/Creature.h
+./GameOfLife.spritebuilder/Source/Creature.m
+./GameOfLife.spritebuilder/Source/Grid.h
+./GameOfLife.spritebuilder/Source/Grid.m
+./GameOfLife.spritebuilder/Source/main.m
+./GameOfLife.spritebuilder/Source/MainScene.h
+./GameOfLife.spritebuilder/Source/MainScene.m
