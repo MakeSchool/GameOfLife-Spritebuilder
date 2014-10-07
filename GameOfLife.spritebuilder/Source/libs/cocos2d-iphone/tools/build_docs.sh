@@ -7,8 +7,8 @@ target="iphoneos";
 outputPath="api-docs";
 # End constants
 tools/appledoc \
---project-name "Cocos2D Developer Library" \
---project-company "3.0.0" \
+--project-name "Cocos2D" \
+--project-company "3.2.0" \
 --company-id "org.cocos2d" \
 --docset-atom-filename "testpath4.atom" \
 --docset-feed-url "${companyURL}/${company}/%DOCSETATOMFILENAME" \
@@ -108,4 +108,5 @@ tools/appledoc \
 --ignore uthash.h \
 --ignore utlist.h \
 --ignore ZipUtils.h \
+--ignore CCPhysics+ObjectiveChipmunk.h \
 cocos2d cocos2d-ui
