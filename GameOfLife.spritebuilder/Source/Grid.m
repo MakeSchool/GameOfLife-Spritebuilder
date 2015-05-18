@@ -70,7 +70,7 @@ static const int GRID_COLUMNS = 10;
 
 #pragma mark - Touch Handling
 
-- (void)touchBegan:(CCTouch *)touch withEvent:(UIEvent *)event
+- (void)touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event
 {
   //get the x,y coordinates of the touch
   CGPoint touchLocation = [touch locationInNode:self];
