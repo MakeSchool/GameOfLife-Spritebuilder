@@ -1,0 +1,4 @@
+language: objective-c
+
+script:
+  - xctool -project GameOfLife.spritebuilder/GameOfLife.xcodeproj -scheme GameOfLife -sdk iphonesimulator build test CODE_SIGNING_REQUIRED=NO
